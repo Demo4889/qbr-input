@@ -4,6 +4,8 @@ NUI input system for QBRCore
 
 This is a modified version of **[NH Keyboard](https://forum.cfx.re/t/no-longer-supported-standalone-nerohiro-s-keyboard-dynamic-nui-keyboard-input/2506326)** by **[NeroHiro](https://github.com/nerohiro)**
 
+![image](https://user-images.githubusercontent.com/57848836/158486183-68c40a47-0bf3-44c4-b738-b80520de10da.png)
+
 ## Example
 
 Here is an example commant which will create a basic form and will print out it's inputs:
