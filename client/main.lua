@@ -1,16 +1,37 @@
-# qbr-input
+local properties = nil
 
-NUI input system for QBRCore
+RegisterNUICallback("buttonSubmit", function(data, cb)
+    SetNuiFocus(false)
+    properties:resolve(data.data)
+    properties = nil
+    cb("ok")
+end)
 
-This is a modified version of **[NH Keyboard](https://forum.cfx.re/t/no-longer-supported-standalone-nerohiro-s-keyboard-dynamic-nui-keyboard-input/2506326)** by **[NeroHiro](https://github.com/nerohiro)**
+RegisterNUICallback("closeMenu", function(data, cb)
+    SetNuiFocus(false)
+    properties:resolve(nil)
+    properties = nil
+    cb("ok")
+end)
 
-## Example
+function ShowInput(data)
+    Wait(150)
+    if not data then return end
+    if properties then return end
 
-Here is an example commant which will create a basic form and will print out it's inputs:
+    properties = promise.new()
 
-```lua
+    SetNuiFocus(true, true)
+    SendNUIMessage({
+        action = "OPEN_MENU",
+        data = data
+    })
+
+    return Citizen.Await(properties)
+end
+
 RegisterCommand('testinput', function()
-    local dialog = exports['qbr-input']:ShowInput({
+    local dialog = ShowInput({
         header = "Test",
         submitText = "Bill",
         inputs = {
@@ -69,22 +90,5 @@ RegisterCommand('testinput', function()
         end
     end
 end, false)
-```
 
-## License
-
-    QBCore Framework
-    Copyright (C) 2021 Joshua Eger
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <https://www.gnu.org/licenses/>
+exports("ShowInput", ShowInput)
