@@ -8,7 +8,7 @@ This is a modified version of **[NH Keyboard](https://forum.cfx.re/t/no-longer-s
 
 ## Example
 
-Here is an example commant which will create a basic form and will print out it's inputs:
+Here is an example command which will create a basic form and will print out it's inputs:
 
 ```lua
 RegisterCommand('testinput', function()
